@@ -21,5 +21,5 @@ How to run the project in dev mode:
   cd Django_3_2_15
   python manage.py runserver
  
- 2. Go on link you got in console to view the work of the program
+2. Go on link you got in console to view the work of the program
   
