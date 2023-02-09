@@ -10,6 +10,7 @@ How to run the project in dev mode:
   pip3 install black
   cd Django_3_2_15
   python3 manage.py runserver
+
 1_2. Run in console following lines (for Windows):
   python -m venv venv
   venv\Scripts\activate
