@@ -9,6 +9,7 @@ How to run the project in dev mode:
     source venv\bin\activate
     python3 -m pip install --upgrade pip
     pip3 install -r requirements.txt
+    pip3 install -r requirements-dev.txt
     cd Django_3_2_15
     python3 manage.py runserver
 
@@ -20,6 +21,7 @@ How to run the project in dev mode:
     venv\Scripts\activate
     python -m pip install --upgrade pip
     pip install -r requirements.txt
+    pip install -r requirements-dev.txt
     cd Django_3_2_15
     python manage.py runserver
 
