@@ -1,0 +1,4 @@
+flake8==6.0.0
+flake8-alphabetize==0.0.19
+flake8-variables-names==0.0.5
+black==23.1.0

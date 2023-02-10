@@ -10,8 +10,8 @@ How to run the project in dev mode:
     python3 -m venv venv (creating virtual enviroment)
     source venv\bin\activate (activating virtual enviroment)
     python3 -m pip install --upgrade pip (updating pip)
-    pip3 install -r requirements.txt (installing packages required for running project)
-    pip3 install -r requirements-dev.txt (installing packages required for development)
+    pip3 install -r requirements\requirements.txt (installing packages required for running project)
+    pip3 install -r requirements\requirements-dev.txt (installing packages required for development)
     cd Django_3_2_15 (changing directory to the one which contains main project file)
     python3 manage.py runserver (starting the server)
 
@@ -22,8 +22,8 @@ How to run the project in dev mode:
     python -m venv venv (creating virtual enviroment)
     venv\Scripts\activate (activating virtual enviroment)
     python -m pip install --upgrade pip (updating pip)
-    pip install -r requirements.txt (installing packages required for running project)
-    pip install -r requirements-dev.txt (installing packages required for development)
+    pip install -r requirements\requirements.txt (installing packages required for running project)
+    pip install -r requirements\requirements-dev.txt (installing packages required for development)
     cd Django_3_2_15 (changing directory to the one which contains main project file)
     python manage.py runserver (starting the server)
 
