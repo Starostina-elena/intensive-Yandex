@@ -23,15 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY') if os.getenv('SECRET_KEY') else 'key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('DEBUG').lower() in {'y', 'yes', 'true', '1', 't'}:
-    DEBUG = True
-else:
-    DEBUG = False
+DEBUG = os.getenv('DEBUG').lower() in {'y', 'yes', 'true', '1', 't'} \
+    if os.getenv('DEBUG') else True
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split()
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split() if \
+    os.environ.get('ALLOWED_HOSTS').split() else '127.0.0.1'
 
 
 # Application definition
