@@ -2,4 +2,4 @@ flake8==6.0.0
 flake8-alphabetize==0.0.19
 pep8-naming==0.13.3
 flake8-import-order==0.18.2
-pip install flake8-quotes
+flake8-quotes==3.3.2
