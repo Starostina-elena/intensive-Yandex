@@ -1,2 +1,4 @@
 flake8
+flake8-alphabetize
+flake8-variables-names
 black

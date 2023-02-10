@@ -1,4 +1,4 @@
-https://img.shields.io/github/actions/workflow/status/Starostina-elena/intensive-Yandex/.github/workflows/python-package.yml?style=flat-square
+![](https://img.shields.io/github/actions/workflow/status/Starostina-elena/intensive-Yandex/.github/workflows/python-package.yml?style=flat-square)
 
 # intensive-Yandex
 How to run the project in dev mode:
