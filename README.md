@@ -12,10 +12,10 @@ How to run the project in dev mode:
     python3 -m pip install --upgrade pip (updating pip)
     pip3 install -r requirements\requirements.txt (installing packages required for running project)
     pip3 install -r requirements\requirements-dev.txt (installing packages required for development)
-
-2_1. Create file .env and fill parameters like in the file .env.example 
+2_1. Create file .env and fill parameters like in the file .env.example
 
 3_1. Run in console:
+
     cd Django_3_2_15 (changing directory to the one which contains main project file)
     python3 manage.py runserver (starting the server)
 
@@ -28,10 +28,10 @@ How to run the project in dev mode:
     python -m pip install --upgrade pip (updating pip)
     pip install -r requirements\requirements.txt (installing packages required for running project)
     pip install -r requirements\requirements-dev.txt (installing packages required for development)
-
 2_2. Create file .env and fill parameters like in the file .env.example 
 
 3_2. Run in console:
+
     cd Django_3_2_15 (changing directory to the one which contains main project file)
     python manage.py runserver (starting the server)
 
