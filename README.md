@@ -5,27 +5,27 @@ How to run the project in dev mode:
 
 1_1. Run in console following lines (for Linux):
 
-    git clone https://github.com/Starostina-elena/intensive-Yandex.git
-    cd intensive-Yandex
-    python3 -m venv venv
-    source venv\bin\activate
-    python3 -m pip install --upgrade pip
-    pip3 install -r requirements.txt
-    pip3 install -r requirements-dev.txt
-    cd Django_3_2_15
-    python3 manage.py runserver
+    git clone https://github.com/Starostina-elena/intensive-Yandex.git (cloning github repo to your device)
+    cd intensive-Yandex (moving to the directory with project)
+    python3 -m venv venv (creating virtual enviroment)
+    source venv\bin\activate (activating virtual enviroment)
+    python3 -m pip install --upgrade pip (updating pip)
+    pip3 install -r requirements.txt (installing packages required for running project)
+    pip3 install -r requirements-dev.txt (installing packages required for development)
+    cd Django_3_2_15 (changing directory to the one which contains main project file)
+    python3 manage.py runserver (starting the server)
 
 1_2. Run in console following lines (for Windows):
 
-    git clone https://github.com/Starostina-elena/intensive-Yandex.git
-    cd intensive-Yandex
-    python -m venv venv
-    venv\Scripts\activate
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-    pip install -r requirements-dev.txt
-    cd Django_3_2_15
-    python manage.py runserver
+    git clone https://github.com/Starostina-elena/intensive-Yandex.git (cloning github repo to your device)
+    cd intensive-Yandex (moving to the directory with project)
+    python -m venv venv (creating virtual enviroment)
+    venv\Scripts\activate (activating virtual enviroment)
+    python -m pip install --upgrade pip (updating pip)
+    pip install -r requirements.txt (installing packages required for running project)
+    pip install -r requirements-dev.txt (installing packages required for development)
+    cd Django_3_2_15 (changing directory to the one which contains main project file)
+    python manage.py runserver (starting the server)
 
 2. Go on link you got in console to view the work of the program
   
