@@ -26,7 +26,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.getenv('DEBUG').lower() in ['y', 'yes', 'true', '1', 't']:
+if os.getenv('DEBUG').lower() in {'y', 'yes', 'true', '1', 't'}:
     DEBUG = True
 else:
     DEBUG = False
