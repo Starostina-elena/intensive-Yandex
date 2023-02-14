@@ -148,6 +148,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
     DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': lambda request: True,
+        # 'SHOW_TOOLBAR_CALLBACK': lambda request: True,
         'EXTRA_SIGNALS': [],
     }
