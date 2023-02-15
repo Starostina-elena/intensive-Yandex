@@ -28,4 +28,5 @@ jobs:
         pip install -r requirements/requirements-dev.txt
     - name: Run Tests
       run: |
-        python Django_3_2_15/manage.py test
+        cd Django_3_2_15
+        python manage.py test
