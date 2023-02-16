@@ -10,22 +10,32 @@ class StaticUrlTests(TestCase):
 
     @parameterized.expand(
         [
-            ('/catalog/5', 200),
-            ('/catalog/5', 200),
-            ('/catalog/re/5', 200),
-            ('/catalog/10000', 200),
-            ('/catalog/re/1', 200),
-            ('/catalog/10500', 200),
-            ('/catalog/-5', 404),
-            ('/catalog/re/-5', 404),
-            ('/catalog/re/-5', 404),
-            ('/catalog/-3', 404),
-            ('/catalog/re/-100000', 404),
-            ('/catalog/re/-0', 404),
-            ('/catalog/re/-5', 404),
-            ('/catalog/re/ahcjk', 404)
+            ('5', 200),
+            ('zfsd', 404),
+            ('-5', 404),
+            ('-0', 404),
         ]
     )
-    def test_catalog_item_id_endpoint(self, url, code):
-        response = Client().get(url)
+    def test_catalog_item_id_classic_endpoint(self, url, code):
+        response = Client().get(f'/catalog/{url}')
+        self.assertEqual(response.status_code, code)
+
+    @parameterized.expand(
+        [
+            ('convertor/5', 200),
+            ('re/5', 200),
+            ('convertor/-5', 404),
+            ('re/-5', 404),
+            ('convertor/afaf', 404),
+            ('re/zkjcbds', 404),
+            ('convertor/0', 404),
+            ('re/0', 404),
+            ('convertor/-0', 404),
+            ('re/-0', 404),
+            ('convertor/0001', 200),
+            ('convertor/-001', 404),
+        ]
+    )
+    def test_catalog_item_id_re_convertor_endpoint(self, url, code):
+        response = Client().get(f'/catalog/{url}')
         self.assertEqual(response.status_code, code)
