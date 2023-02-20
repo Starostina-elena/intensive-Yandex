@@ -31,7 +31,7 @@ class StaticUrlTests(TestCase):
             ('convertor', '0', 404),
             ('re', '0', 404),
             ('convertor', '-0', 404),
-            ('re'  '-0', 404),
+            ('re',  '-0', 404),
             ('convertor', '0001', 404),
             ('re', '0001', 404),
             ('convertor', '-001', 404),
