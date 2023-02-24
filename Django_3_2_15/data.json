@@ -1,0 +1,144 @@
+[
+{
+  "model": "catalog.tag",
+  "pk": 1,
+  "fields": {
+    "name": "Праздничные скидки",
+    "is_published": true,
+    "slug": "hoilday-discount"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 2,
+  "fields": {
+    "name": "Черная пятница",
+    "is_published": false,
+    "slug": "black-friday"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 3,
+  "fields": {
+    "name": "Для стеклянных поверхностей",
+    "is_published": true,
+    "slug": "for-glass"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 4,
+  "fields": {
+    "name": "Продукция Vanish",
+    "is_published": true,
+    "slug": "vanish-production"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 5,
+  "fields": {
+    "name": "Выпечка",
+    "is_published": true,
+    "slug": "bakery"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 6,
+  "fields": {
+    "name": "Фрукты",
+    "is_published": true,
+    "slug": "fruites"
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 1,
+  "fields": {
+    "name": "Бытовая химия",
+    "is_published": true,
+    "slug": "home-chemical",
+    "weight": 100
+  }
+},
+{
+  "model": "catalog.category",
+  "pk": 2,
+  "fields": {
+    "name": "Продукты",
+    "is_published": true,
+    "slug": "food",
+    "weight": 150
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 2,
+  "fields": {
+    "name": "Стиральный порошок \"Vanish\"",
+    "text": "Универсальный стиральный порошок, который превосходно справляется с любыми пятнами.",
+    "is_published": true,
+    "category": 1,
+    "tags": [
+      1,
+      2,
+      4
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 3,
+  "fields": {
+    "name": "Хлеб белый",
+    "text": "Превосходно выпеченная булка хлеба",
+    "is_published": true,
+    "category": 2,
+    "tags": [
+      1,
+      5
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 4,
+  "fields": {
+    "name": "Моющее средство для стекол \"Super-glass\"",
+    "text": "Бытовая химия \"Super-glass\" - секрет роскошно блестящих чистых стекол в вашем доме!",
+    "is_published": false,
+    "category": 1,
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 5,
+  "fields": {
+    "name": "Джем клубничный",
+    "text": "Превосходно сделанный клубничный джем",
+    "is_published": true,
+    "category": 2,
+    "tags": [
+      1
+    ]
+  }
+},
+{
+  "model": "catalog.item",
+  "pk": 6,
+  "fields": {
+    "name": "Бананы вес",
+    "text": "Роскошно выглядящие бананы, которые могут послужить прекрасным легким перекусом",
+    "is_published": false,
+    "category": 2,
+    "tags": [
+      6
+    ]
+  }
+}
+]
