@@ -212,20 +212,22 @@ class StaticUrlTests(TestCase):
 
     @parameterized.expand(
         [
-            ('convertor/5', 200),
-            ('re/5', 200),
-            ('convertor/-5', 404),
-            ('re/-5', 404),
-            ('convertor/afaf', 404),
-            ('re/zkjcbds', 404),
-            ('convertor/0', 404),
-            ('re/0', 404),
-            ('convertor/-0', 404),
-            ('re/-0', 404),
-            ('convertor/0001', 200),
-            ('convertor/-001', 404),
+            ('convertor', '5', 200),
+            ('re', '5', 200),
+            ('convertor', '-5', 404),
+            ('re', '-5', 404),
+            ('convertor', 'afaf', 404),
+            ('re', 'zkjcbds', 404),
+            ('convertor', '0', 404),
+            ('re', '0', 404),
+            ('convertor', '-0', 404),
+            ('re',  '-0', 404),
+            ('convertor', '0001', 404),
+            ('re', '0001', 404),
+            ('convertor', '-001', 404),
+            ('re', '-001', 404),
         ]
     )
-    def test_catalog_item_id_re_convertor_endpoint(self, url, code):
-        response = Client().get(f'/catalog/{url}')
+    def test_catalog_item_id_re_convertor_endpoint(self, url, item_id, code):
+        response = Client().get(f'/catalog/{url}/{item_id}')
         self.assertEqual(response.status_code, code)
