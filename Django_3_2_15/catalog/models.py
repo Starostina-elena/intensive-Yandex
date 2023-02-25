@@ -1,49 +1,59 @@
-from Core.models import ModelForCatalog
+from core.models import ModelForCatalog
+from core.validators import validator_word_good
 
-from django.core import exceptions
+from django.core import validators
 from django.db import models
 
 
-def validator_word_good(value):
-    if 'превосходно' not in value.lower() and 'роскошно' not in value.lower():
-        raise exceptions.ValidationError('В тексте должно быть '
-                                         'слово "превосходно" или "роскошно"')
-
-
 class Tag(ModelForCatalog):
+    slug = models.SlugField('Slug',
+                            max_length=200,
+                            unique=True,
+                            help_text='Укажите slug')
+
     class Meta:
-        verbose_name = 'Тэг'
-        verbose_name_plural = 'Тэги'
+        verbose_name = 'тэг'
+        verbose_name_plural = 'тэги'
 
 
 class Category(ModelForCatalog):
-    weight = models.PositiveSmallIntegerField(default=100)
+    slug = models.SlugField('Slug',
+                            max_length=200,
+                            unique=True,
+                            help_text='Укажите slug')
+    weight = models.PositiveSmallIntegerField('Вес',
+                                              default=100,
+                                              help_text='Чем меньше вес, '
+                                              'тем раньше товар в выдаче',
+                                              validators=[
+                                                validators.MinValueValidator(
+                                                    0
+                                                ),
+                                                validators.MaxValueValidator(
+                                                    32767
+                                                )
+                                              ])
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name = 'категория'
+        verbose_name_plural = 'категории'
 
 
-class Item(models.Model):
-    name = models.CharField(max_length=150)
+class Item(ModelForCatalog):
     text = models.TextField('Описание',
                             help_text='Укажите описание товара',
                             validators=[
                                 validator_word_good
-                            ],
-                            null=True)
-
-    is_published = models.BooleanField('Опубликовано?', default=True)
+                            ])
 
     category = models.ForeignKey('Category',
                                  on_delete=models.CASCADE,
                                  related_name='items',
-                                 null=True,)
-    tags = models.ManyToManyField(Tag)
+                                 verbose_name='Категория',
+                                 help_text='Укажите категорию')
+    tags = models.ManyToManyField(Tag, verbose_name='Тэги',
+                                  help_text='Выберите тэги.')
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
-
-    def __str__(self):
-        return self.name[:15]
+        verbose_name = 'товар'
+        verbose_name_plural = 'товары'

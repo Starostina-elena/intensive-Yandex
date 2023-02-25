@@ -16,7 +16,7 @@ How to run the project in dev mode:
 
 3_1. Run in console:
 
-    cd Django_3_2_15 (changing directory to the one which contains main project file)
+    cd django_3_2_15 (changing directory to the one which contains main project file)
     python3 manage.py runserver (starting the server)
 
 1_2. Run in console following lines (for Windows):
@@ -32,7 +32,7 @@ How to run the project in dev mode:
 
 3_2. Run in console:
 
-    cd Django_3_2_15 (changing directory to the one which contains main project file)
+    cd django_3_2_15 (changing directory to the one which contains main project file)
     python manage.py runserver (starting the server)
 
 4. Go on link you got in console to view the work of the program

@@ -23,28 +23,27 @@ class TestDataBaseAddItem(TestCase):
             slug='test-tag-slug'
         )
 
-    def test_unable_create_one_letter(self):
+    def tearDown(self):
+        models.Category.objects.all().delete()
+        models.Tag.objects.all().delete()
+        models.Item.objects.all().delete()
+
+    @parameterized.expand(
+        [
+            ('1',),
+            ('111111',),
+            ('превосходнооо',),
+            ('роскошноb',),
+        ]
+    )
+    def test_unable_create_with_bad_description(self, text):
         item_count = models.Item.objects.count()
         with self.assertRaises(exceptions.ValidationError):
             self.item = models.Item(
                 id=1,
                 name='Тестовый товар',
                 category=self.category,
-                text='1'
-            )
-            self.item.full_clean()
-            self.item.save()
-
-        self.assertEqual(models.Item.objects.count(), item_count)
-
-    def test_unable_create_without_good_text(self):
-        item_count = models.Item.objects.count()
-        with self.assertRaises(exceptions.ValidationError):
-            self.item = models.Item(
-                id=1,
-                name='Тестовый товар',
-                category=self.category,
-                text='11111111111'
+                text=text
             )
             self.item.full_clean()
             self.item.save()
@@ -96,6 +95,12 @@ class TestDataBaseAddItem(TestCase):
 
 
 class TestDataBaseAddTag(TestCase):
+
+    def tearDown(self):
+        models.Category.objects.all().delete()
+        models.Tag.objects.all().delete()
+        models.Item.objects.all().delete()
+
     def test_able_create_tag(self):
         tag_count = models.Tag.objects.count()
 
@@ -141,10 +146,42 @@ class TestDataBaseAddTag(TestCase):
             self.tag.full_clean()
             self.tag.save()
 
-        self.assertEqual(models.Item.objects.count(), tag_count)
+        self.assertEqual(models.Tag.objects.count(), tag_count)
+
+    def test_unable_create_tag_with_not_unique_slug(self):
+        tag_count = models.Tag.objects.count()
+
+        self.tag = models.Tag(
+                id=1,
+                name='TestTag',
+                slug='test',
+                is_published=True,
+            )
+
+        self.tag.full_clean()
+        self.tag.save()
+
+        with self.assertRaises(exceptions.ValidationError):
+            self.tag = models.Tag(
+                id=2,
+                name='TestTag2',
+                slug='test',
+                is_published=True,
+            )
+
+            self.tag.full_clean()
+            self.tag.save()
+
+        self.assertEqual(models.Tag.objects.count(), tag_count + 1)
 
 
 class TestDataBaseAddCategory(TestCase):
+
+    def tearDown(self):
+        models.Category.objects.all().delete()
+        models.Tag.objects.all().delete()
+        models.Item.objects.all().delete()
+
     def test_able_create_category(self):
         category_count = models.Category.objects.count()
 
@@ -176,7 +213,7 @@ class TestDataBaseAddCategory(TestCase):
 
         self.assertEqual(models.Category.objects.count(), category_count)
 
-    def test_unable_create_tag_with_long_slug(self):
+    def test_unable_create_category_with_long_slug(self):
         category_count = models.Category.objects.count()
 
         with self.assertRaises(exceptions.ValidationError):
@@ -185,6 +222,55 @@ class TestDataBaseAddCategory(TestCase):
                 name='TestCategory',
                 slug='t' * 201,
                 is_published=True,
+            )
+
+            self.category.full_clean()
+            self.category.save()
+
+        self.assertEqual(models.Category.objects.count(), category_count)
+
+    def test_unable_create_category_with_not_unique_slug(self):
+        category_count = models.Category.objects.count()
+
+        self.category = models.Category(
+                id=1,
+                name='TestCategory',
+                slug='test',
+                is_published=True,
+            )
+
+        self.category.full_clean()
+        self.category.save()
+
+        with self.assertRaises(exceptions.ValidationError):
+            self.category = models.Category(
+                id=2,
+                name='TestCategory2',
+                slug='test',
+                is_published=True,
+            )
+
+            self.category.full_clean()
+            self.category.save()
+
+        self.assertEqual(models.Category.objects.count(), category_count + 1)
+
+    @parameterized.expand(
+        [
+            (-1,),
+            (100000000000,),
+        ]
+    )
+    def test_unable_create_category_with_wrong_weight(self, weight):
+        category_count = models.Category.objects.count()
+
+        with self.assertRaises(exceptions.ValidationError):
+            self.category = models.Category(
+                id=1,
+                name='TestCategory',
+                slug='test',
+                is_published=True,
+                weight=weight,
             )
 
             self.category.full_clean()
