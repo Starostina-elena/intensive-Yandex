@@ -12,7 +12,10 @@ def item_list(request):
 
 def item_detail(request, item_id):
     template = 'catalog/item_detail.html'
-    obj = models.Item.objects.get(id=item_id)
+    try:
+        obj = models.Item.objects.get(id=item_id)
+    except models.Item.DoesNotExist:
+        return render(request, 'catalog/not_found_item.html', {})
     context = {'item': obj,
                'item_tags': list(obj.tags.filter(is_published=True))}
     return render(request, template, context)

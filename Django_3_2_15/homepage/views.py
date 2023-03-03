@@ -10,4 +10,4 @@ def home(request):
 def coffee(request):
     template = 'homepage/coffee.html'
     context = {}
-    return render(request, template, context)
+    return render(request, template, context, status=418)
