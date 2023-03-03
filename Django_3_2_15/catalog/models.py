@@ -6,16 +6,14 @@ from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from django_cleanup import cleanup
-
 from sorl.thumbnail import ImageField, get_thumbnail
 
 
 class Tag(ModelForCatalog):
-    slug = models.SlugField('Slug',
+    slug = models.SlugField('слаг',
                             max_length=200,
                             unique=True,
-                            help_text='Укажите slug')
+                            help_text='Укажите слаг')
 
     class Meta:
         verbose_name = 'тэг'
@@ -45,7 +43,6 @@ class Category(ModelForCatalog):
         verbose_name_plural = 'категории'
 
 
-@cleanup.select
 class PhotoForGallery(models.Model):
     image = ImageField('изображение',
                        upload_to='')
@@ -84,7 +81,6 @@ class Item(ModelForCatalog):
         return reverse('catalog:item_detail', args=[self.id])
 
 
-@cleanup.select
 class ImageModel(models.Model):
 
     image = ImageField('главное изображение',
