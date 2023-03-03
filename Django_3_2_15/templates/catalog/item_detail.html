@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-layer">
+  <h3 class="headers">{{ item.name }}</h3>
+  <p>{{ item.text }}</p>
+  <br>
+  <p>
+    Категория: <button type="button" class="btn btn-light">{{ item.category }}</button>
+  </P>
+  <p>
+    Теги: {% for tag in item_tags %}<button type="button" class="btn btn-light">{{ tag }}</button> {% endfor %}
+  </p>
+</div>
+{% endblock%}

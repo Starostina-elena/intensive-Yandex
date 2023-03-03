@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+  <div class="center-layer">
+    <h3>Добро пожаловать в онлайн магазин!</h3>
+    <h4>Всего один клик отделяет вас от сотен товаров</h4>
+    <p>&#128073;<a href="{% url 'catalog:item_list' %}">Начать шоппинг</a></p>
+    <div class="for-pictures">
+      <img src="{% static 'img/cat_home_page.jfif' %}">
+    </div>
+  </div>
+{% endblock%}

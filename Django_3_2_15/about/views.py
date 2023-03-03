@@ -1,7 +1,8 @@
-from django.http import HttpResponse
-# from django.shortcuts import render
+from django.shortcuts import render
 
 
 # Create your views here.
 def description(request):
-    return HttpResponse('<html><body>О проекте</body></html>')
+    template = 'about/about.html'
+    context = {}
+    return render(request, template, context)

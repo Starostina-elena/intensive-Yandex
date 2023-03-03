@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<div class="center-layer">
+  <p>Я чайник. Хотите чаю? Кстати, у нас в ассортименте есть и чай тоже!</p>
+  <p>&#128073;<a href="{% url 'catalog:item_list' %}">Отправиться за чаем</a></p>
+  <div class="for-pictures">
+    <img src="{% static 'img/tea_for_coffee_page.jpg' %}" width=512 height=317>
+  </div>
+</div>
+{% endblock%}

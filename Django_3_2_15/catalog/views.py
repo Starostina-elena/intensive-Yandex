@@ -1,11 +1,18 @@
-from django.http import HttpResponse
-# from django.shortcuts import render
+from catalog import models
+
+from django.shortcuts import render
 
 
-# Create your views here.
 def item_list(request):
-    return HttpResponse('<html><body>Список элементов</body></html>')
+    template = 'catalog/item_list.html'
+    context = {'items_list':
+               list(models.Item.objects.filter(is_published=True))}
+    return render(request, template, context)
 
 
 def item_detail(request, item_id):
-    return HttpResponse('<html><body>Подробно элемент</body></html>')
+    template = 'catalog/item_detail.html'
+    obj = models.Item.objects.get(id=item_id)
+    context = {'item': obj,
+               'item_tags': list(obj.tags.filter(is_published=True))}
+    return render(request, template, context)
