@@ -3,7 +3,7 @@
 {% block content %}
 <div class="center-layer">
   <h3 class="headers">{{ item.name }}</h3>
-  <p>{{ item.text }}</p>
+  <p>{{ item.text|safe }}</p>
   <br>
   <p>
     Категория: <button type="button" class="btn btn-light">{{ item.category }}</button>

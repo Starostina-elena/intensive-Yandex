@@ -6,3 +6,4 @@ sqlparse==0.4.3
 pillow==9.4.0
 django-cleanup==7.0.0
 sorl-thumbnail==12.9.0
+django-summernote==0.8.20.0

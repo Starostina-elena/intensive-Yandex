@@ -2,6 +2,8 @@ import catalog.models
 
 from django.contrib import admin
 
+from django_summernote.admin import SummernoteModelAdmin
+
 
 admin.site.register(catalog.models.Tag)
 admin.site.register(catalog.models.Category)
@@ -18,7 +20,7 @@ class ImageAdmin(admin.TabularInline):
 
 
 @admin.register(catalog.models.Item)
-class ItemAdmin(admin.ModelAdmin):
+class ItemAdmin(SummernoteModelAdmin):
     list_display = (
         catalog.models.Item.id.field.name,
         catalog.models.Item.name.field.name,
@@ -29,3 +31,4 @@ class ItemAdmin(admin.ModelAdmin):
     list_display_links = (catalog.models.Item.name.field.name,)
     filter_horizontal = (catalog.models.Item.tags.field.name,)
     inlines = [AlbumImageAdmin, ImageAdmin]
+    summernote_fields = (catalog.models.Item.text.field.name,)
