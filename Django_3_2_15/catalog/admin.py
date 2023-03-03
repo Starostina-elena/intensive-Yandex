@@ -3,7 +3,10 @@ import catalog.models
 from django.contrib import admin
 
 from django_summernote.admin import SummernoteModelAdmin
+from django_summernote.utils import get_attachment_model
 
+
+admin.site.unregister(get_attachment_model())
 
 admin.site.register(catalog.models.Tag)
 admin.site.register(catalog.models.Category)

@@ -7,16 +7,8 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from django_cleanup import cleanup
-from django_cleanup.signals import cleanup_pre_delete
 
-from sorl.thumbnail import ImageField, delete, get_thumbnail
-
-
-def sorl_delete(**kwargs):
-    delete(kwargs['file'])
-
-
-cleanup_pre_delete.connect(sorl_delete)
+from sorl.thumbnail import ImageField, get_thumbnail
 
 
 class Tag(ModelForCatalog):
@@ -31,11 +23,11 @@ class Tag(ModelForCatalog):
 
 
 class Category(ModelForCatalog):
-    slug = models.SlugField('Slug',
+    slug = models.SlugField('слаг',
                             max_length=200,
                             unique=True,
-                            help_text='Укажите slug')
-    weight = models.PositiveSmallIntegerField('Вес',
+                            help_text='Укажите слаг')
+    weight = models.PositiveSmallIntegerField('вес',
                                               default=100,
                                               help_text='Чем меньше вес, '
                                               'тем раньше товар в выдаче',
@@ -55,10 +47,10 @@ class Category(ModelForCatalog):
 
 @cleanup.select
 class PhotoForGallery(models.Model):
-    image = ImageField('Изображение',
-                       upload_to='media')
+    image = ImageField('изображение',
+                       upload_to='')
     item = models.ForeignKey('Item',
-                             verbose_name='Изображение',
+                             verbose_name='изображение',
                              on_delete=models.CASCADE)
 
     class Meta:
@@ -70,7 +62,7 @@ class PhotoForGallery(models.Model):
 
 
 class Item(ModelForCatalog):
-    text = models.TextField('Описание',
+    text = models.TextField('описание',
                             help_text='Укажите описание товара',
                             validators=[
                                 validator_word_good
@@ -78,10 +70,10 @@ class Item(ModelForCatalog):
 
     category = models.ForeignKey('Category',
                                  on_delete=models.CASCADE,
-                                 related_name='items',
-                                 verbose_name='Категория',
+                                 related_name='item',
+                                 verbose_name='категория',
                                  help_text='Укажите категорию')
-    tags = models.ManyToManyField(Tag, verbose_name='Тэги',
+    tags = models.ManyToManyField(Tag, verbose_name='тэги',
                                   help_text='Выберите тэги.')
 
     class Meta:
@@ -95,12 +87,12 @@ class Item(ModelForCatalog):
 @cleanup.select
 class ImageModel(models.Model):
 
-    image = ImageField('Главное изображение',
+    image = ImageField('главное изображение',
                        upload_to='',
                        null=True,)
     item_connected = models.ForeignKey('Item',
                                        on_delete=models.CASCADE,
-                                       verbose_name='Главное изображение',
+                                       verbose_name='главное изображение',
                                        )
 
     def get_main_image_300_300(self):
