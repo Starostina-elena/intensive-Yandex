@@ -17,7 +17,7 @@ class ModelForCatalog(models.Model):
 class ModelForImage(models.Model):
     image = ImageField('изображение',
                        upload_to='')
-    
+
     class Meta:
         abstract = True
 
