@@ -2,8 +2,9 @@ venv
 *.log
 *.pot
 *.pyc
-__pycache__
+Django_3_2_15/Django_3_2_15/to_delete.txt
 */__pycache__
 db.sqlite3
 .idea
 .env
+Django_3_2_15/media/cache

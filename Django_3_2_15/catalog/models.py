@@ -1,4 +1,4 @@
-from core.models import ModelForCatalog
+from core.models import ModelForCatalog, ModelForImage
 from core.validators import validator_word_good
 
 from django.core import validators
@@ -6,7 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from sorl.thumbnail import ImageField, get_thumbnail
+from sorl.thumbnail import get_thumbnail
 
 
 class Tag(ModelForCatalog):
@@ -43,9 +43,8 @@ class Category(ModelForCatalog):
         verbose_name_plural = 'категории'
 
 
-class PhotoForGallery(models.Model):
-    image = ImageField('изображение',
-                       upload_to='')
+class PhotoForGallery(ModelForImage):
+
     item = models.ForeignKey('Item',
                              verbose_name='изображение',
                              on_delete=models.CASCADE)
@@ -53,9 +52,6 @@ class PhotoForGallery(models.Model):
     class Meta:
         verbose_name = 'изображение'
         verbose_name_plural = 'изображения'
-
-    def __str__(self):
-        return self.image.name
 
 
 class Item(ModelForCatalog):
@@ -81,15 +77,19 @@ class Item(ModelForCatalog):
         return reverse('catalog:item_detail', args=[self.id])
 
 
-class ImageModel(models.Model):
+class ImageModel(ModelForImage):
 
-    image = ImageField('главное изображение',
-                       upload_to='',
-                       null=True,)
-    item_connected = models.ForeignKey('Item',
-                                       on_delete=models.CASCADE,
-                                       verbose_name='главное изображение',
-                                       )
+    item_connected = models.OneToOneField('Item',
+                                          on_delete=models.CASCADE,
+                                          verbose_name='главное изображение',
+                                          )
+
+    @property
+    def get_main_image_50_50(self):
+        return get_thumbnail(self.image,
+                             '50x50',
+                             crop='center',
+                             quality=51)
 
     def get_main_image_300_300(self):
         return get_thumbnail(self.image,
@@ -101,7 +101,7 @@ class ImageModel(models.Model):
         img = ImageModel.objects.get(item_connected=self.id)
         if img:
             return mark_safe(
-                f'<img src="{img.image.url}" width="50">'
+                f'<img src="{img.get_main_image_50_50.url}">'
             )
         return 'Изображения нет'
     image_tmb.short_description = 'превью'
