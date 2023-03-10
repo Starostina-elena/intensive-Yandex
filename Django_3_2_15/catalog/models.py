@@ -54,7 +54,26 @@ class PhotoForGallery(ModelForImage):
         verbose_name_plural = 'изображения'
 
 
+class ItemManager(models.Manager):
+    def published(self):
+        return (
+            self.get_queryset()
+            .filter(is_published=True)
+            .filter(category__is_published=True)
+            .select_related('category', 'imagemodel')
+            .prefetch_related(
+                models.Prefetch(
+                    'tags',
+                    queryset=Tag.objects.filter(is_published=True).only('name')
+                )
+            ).only('name', 'text', 'category_id',
+                   'category__name', 'imagemodel__image')
+        )
+
+
 class Item(ModelForCatalog):
+    objects = ItemManager()
+
     text = models.TextField('описание',
                             help_text='Укажите описание товара',
                             validators=[
@@ -68,6 +87,11 @@ class Item(ModelForCatalog):
                                  help_text='Укажите категорию')
     tags = models.ManyToManyField(Tag, verbose_name='тэги',
                                   help_text='Выберите тэги.')
+
+    is_on_main = models.BooleanField('отображать товар на главной?',
+                                     help_text='Укажите, должен ли товар '
+                                     'отображаться на главной',
+                                     default=False)
 
     class Meta:
         verbose_name = 'товар'
@@ -91,9 +115,10 @@ class ImageModel(ModelForImage):
                              crop='center',
                              quality=51)
 
-    def get_main_image_300_300(self):
+    @property
+    def get_main_image_300_200(self):
         return get_thumbnail(self.image,
-                             '300x300',
+                             '300x200',
                              crop='center',
                              quality=51)
 

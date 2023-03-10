@@ -1,21 +1,23 @@
 from catalog import models
 
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 
 def item_list(request):
     template = 'catalog/item_list.html'
-    context = {'items_list':
-               list(models.Item.objects.filter(is_published=True))}
+    items = models.Item.objects.published().order_by('category', 'id')
+    context = {'items_list': items}
     return render(request, template, context)
 
 
 def item_detail(request, item_id):
     template = 'catalog/item_detail.html'
-    try:
-        obj = models.Item.objects.get(id=item_id)
-    except models.Item.DoesNotExist:
-        return render(request, 'catalog/not_found_item.html', {})
-    context = {'item': obj,
-               'item_tags': list(obj.tags.filter(is_published=True))}
+    item = get_object_or_404(
+        models.Item.objects.published(),
+        id=item_id
+    )
+    gallery = list(models.PhotoForGallery.objects.filter(item=item_id))
+    context = {'item': item,
+               'album_first': gallery[0] if gallery else None,
+               'album': gallery[1:] if gallery else None}
     return render(request, template, context)

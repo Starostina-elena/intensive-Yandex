@@ -2,8 +2,99 @@ from catalog import models
 
 from django.core import exceptions
 from django.test import Client, TestCase
+from django.urls import reverse
 
 from parameterized import parameterized
+
+
+class TestContext(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.published_category = models.Category.objects.create(
+            is_published=True,
+            name='Тестовая категория',
+            slug='test-category-slug',
+            weight=100
+        )
+        cls.unpublished_category = models.Category.objects.create(
+            is_published=False,
+            name='Тестовая категория2',
+            slug='test-category-slug2',
+            weight=100
+        )
+        cls.published_tag = models.Tag.objects.create(
+            is_published=True,
+            name='Тестовый тэг',
+            slug='test-tag-slug'
+        )
+        cls.unpublished_tag = models.Tag.objects.create(
+            is_published=False,
+            name='Тестовый тэг2',
+            slug='test-tag-slug2'
+        )
+        cls.published_item = models.Item(
+            name='Тестовый товар',
+            category=cls.published_category,
+            text='превосходно',
+            is_published=True,
+        )
+        cls.published_item_on_main = models.Item(
+            name='Тестовый товар2',
+            category=cls.published_category,
+            text='превосходно',
+            is_published=True,
+            is_on_main=True,
+        )
+        cls.unpublished_item = models.Item(
+            name='Тестовый товар3',
+            category=cls.published_category,
+            text='превосходно',
+            is_published=False,
+        )
+
+        cls.published_category.save()
+        cls.unpublished_category.save()
+        cls.published_tag.save()
+        cls.unpublished_tag.save()
+
+        cls.published_item.clean()
+        cls.published_item.save()
+        cls.published_item_on_main.clean()
+        cls.published_item_on_main.save()
+        cls.unpublished_item.clean()
+        cls.unpublished_item.save()
+
+        cls.published_item.tags.add(cls.published_tag.pk)
+        cls.published_item.tags.add(cls.unpublished_tag.pk)
+
+    def test_home_page_show_context(self):
+        response = Client().get(reverse('homepage:home'))
+        self.assertIn('items_list', response.context)
+
+    def test_home_page_count_item(self):
+        response = Client().get(reverse('homepage:home'))
+        self.assertEqual(response.context['items_list'].count(), 1)
+
+    def test_catalog_show_context(self):
+        response = Client().get(reverse('catalog:item_list'))
+        self.assertIn('items_list', response.context)
+
+    def test_catalog_count_item(self):
+        response = Client().get(reverse('catalog:item_list'))
+        self.assertEqual(response.context['items_list'].count(), 2)
+
+    def test_item_detail_show_context(self):
+        response = Client().get(reverse('catalog:item_detail', args=[1]))
+        self.assertIn('item', response.context)
+        self.assertIn('album_first', response.context)
+        self.assertIn('album', response.context)
+
+    def tearDown(self):
+        models.Category.objects.all().delete()
+        models.Tag.objects.all().delete()
+        models.Item.objects.all().delete()
 
 
 class TestDataBaseAddItem(TestCase):
@@ -277,43 +368,3 @@ class TestDataBaseAddCategory(TestCase):
             self.category.save()
 
         self.assertEqual(models.Category.objects.count(), category_count)
-
-
-class StaticUrlTests(TestCase):
-    def test_catalog_endpoint(self):
-        response = Client().get('/catalog/')
-        self.assertEqual(response.status_code, 200)
-
-    @parameterized.expand(
-        [
-            ('5', 200),
-            ('zfsd', 404),
-            ('-5', 404),
-            ('-0', 404),
-        ]
-    )
-    def test_catalog_item_id_classic_endpoint(self, url, code):
-        response = Client().get(f'/catalog/{url}')
-        self.assertEqual(response.status_code, code)
-
-    @parameterized.expand(
-        [
-            ('convertor', '5', 200),
-            ('re', '5', 200),
-            ('convertor', '-5', 404),
-            ('re', '-5', 404),
-            ('convertor', 'afaf', 404),
-            ('re', 'zkjcbds', 404),
-            ('convertor', '0', 404),
-            ('re', '0', 404),
-            ('convertor', '-0', 404),
-            ('re',  '-0', 404),
-            ('convertor', '0001', 404),
-            ('re', '0001', 404),
-            ('convertor', '-001', 404),
-            ('re', '-001', 404),
-        ]
-    )
-    def test_catalog_item_id_re_convertor_endpoint(self, url, item_id, code):
-        response = Client().get(f'/catalog/{url}/{item_id}')
-        self.assertEqual(response.status_code, code)

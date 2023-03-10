@@ -9,7 +9,6 @@
     <title>Онлайн-супермаркет</title>
 
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
 
@@ -28,5 +27,6 @@
       {% block content %}Кажется, произошла ошибка{% endblock %}
     </main>
     {% include "includes/footer.html" %}
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
   </body>
 </html>

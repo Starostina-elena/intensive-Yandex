@@ -1,0 +1,25 @@
+<div class="col">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <b>{{ item.name }}</b> 
+      </div>
+      <img src="{{ item.imagemodel.get_main_image_300_200.url }}" class="bd-placeholder-img card-img-top">
+
+      <div class="card-body">
+        <p class="card-text">{{ item.text|safe|truncatewords_html:10 }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <form action="{{ item.get_absolute_url }}">
+              <button type="submit" class="btn btn-sm btn-outline-secondary">Посмотреть</button>
+            </form>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Добавить в корзину</button>
+          </div>
+          <small class="text-muted">100 р.</small>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="badge" style="background-color: #BFF490; color: black;">{{ item.category }}</span>
+        {% for tag in item.tags.all %}<span class="badge rounded-pill text-bg-light">{{ tag.name }}</span> {% endfor %}
+      </div>
+    </div>
+  </div>

@@ -28,9 +28,11 @@ class ItemAdmin(SummernoteModelAdmin):
         catalog.models.Item.id.field.name,
         catalog.models.Item.name.field.name,
         catalog.models.Item.is_published.field.name,
+        catalog.models.Item.is_on_main.field.name,
         catalog.models.ImageModel.image_tmb,
     )
-    list_editable = (catalog.models.Item.is_published.field.name,)
+    list_editable = (catalog.models.Item.is_published.field.name,
+                     catalog.models.Item.is_on_main.field.name)
     list_display_links = (catalog.models.Item.name.field.name,)
     filter_horizontal = (catalog.models.Item.tags.field.name,)
     inlines = [AlbumImageAdmin, ImageAdmin]

@@ -1,9 +1,14 @@
+from catalog import models
+
 from django.shortcuts import render
 
 
 def home(request):
     template = 'homepage/homepage.html'
-    context = {}
+    items = models.Item.objects.published().filter(
+        is_on_main=True
+        ).order_by('name', 'id')
+    context = {'items_list': items}
     return render(request, template, context)
 
 
