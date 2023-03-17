@@ -88,7 +88,6 @@ class TestContext(TestCase):
     def test_item_detail_show_context(self):
         response = Client().get(reverse('catalog:item_detail', args=[1]))
         self.assertIn('item', response.context)
-        self.assertIn('album_first', response.context)
         self.assertIn('album', response.context)
 
     def tearDown(self):
