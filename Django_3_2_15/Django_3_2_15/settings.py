@@ -25,6 +25,10 @@ load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'key')
 
+EMAIL = os.getenv('EMAIL', 'example@shop.com')
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'yes').lower() in {'y', 'yes', 'true', '1', 't'}
 
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'homepage.apps.HomepageConfig',
     'core.apps.CoreConfig',
+    'feedback.apps.FeedbackConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
