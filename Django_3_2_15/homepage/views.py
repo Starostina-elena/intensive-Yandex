@@ -7,7 +7,8 @@ def home(request):
     template = 'homepage/homepage.html'
     items = models.Item.objects.published().filter(
         is_on_main=True
-        ).order_by('name', 'id')
+        ).order_by(models.Item.name.field.name,
+                   models.Item.id.field.name)
     context = {'items_list': items}
     return render(request, template, context)
 

@@ -60,14 +60,19 @@ class ItemManager(models.Manager):
             self.get_queryset()
             .filter(is_published=True)
             .filter(category__is_published=True)
-            .select_related('category', 'imagemodel')
+            .select_related(Item.category.field.name,
+                            Item.imagemodel.related.name)
             .prefetch_related(
                 models.Prefetch(
-                    'tags',
+                    Item.tags.field.name,
                     queryset=Tag.objects.filter(is_published=True).only('name')
                 )
-            ).only('name', 'text', 'category_id',
-                   'category__name', 'imagemodel__image')
+            ).only(Item.name.field.name,
+                   Item.text.field.name,
+                   f'{Item.category.field.name}_{Category.id.field.name}',
+                   f'{Item.category.field.name}__{Category.name.field.name}',
+                   f'{Item.imagemodel.related.name}__'
+                   f'{ImageModel.image.field.name}')
         )
 
 

@@ -5,15 +5,13 @@
   <h3 class="headers">{{ item.name }}</h3>
   <img src="{{ item.imagemodel.image.url }}" width="80%">
   <p>{{ item.text|safe }}</p>
-  {% if album_first %}
+  {% if album %}
   <br>
   <div id="carouselExampleControls" class="carousel carousel-dark slide" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="d-block w-100" src="{{ album_first.image.url }}" alt="slide">
-      </div>
+      
       {% for pic in album %}
-        <div class="carousel-item">
+        <div class="carousel-item{% if forloop.first %} active{% endif %}">
           <img class="d-block w-100" src="{{ pic.image.url }}" alt="slide">
         </div>
       {% endfor %}
