@@ -8,3 +8,4 @@ db.sqlite3
 .idea
 .env
 Django_3_2_15/media/cache
+lines.txt

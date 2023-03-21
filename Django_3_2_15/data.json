@@ -30,9 +30,9 @@
   "model": "catalog.tag",
   "pk": 4,
   "fields": {
-    "name": "Продукция Vanish",
+    "name": "Продукция BioMio",
     "is_published": true,
-    "slug": "vanish-production"
+    "slug": "bio-mio-production"
   }
 },
 {
@@ -51,6 +51,15 @@
     "name": "Фрукты",
     "is_published": true,
     "slug": "fruites"
+  }
+},
+{
+  "model": "catalog.tag",
+  "pk": 7,
+  "fields": {
+    "name": "Кисломолочная продукция",
+    "is_published": true,
+    "slug": "dairy-products"
   }
 },
 {
@@ -74,13 +83,38 @@
   }
 },
 {
+  "model": "catalog.photoforgallery",
+  "pk": 2,
+  "fields": {
+    "image": "banan.jpg",
+    "item": 8
+  }
+},
+{
+  "model": "catalog.photoforgallery",
+  "pk": 3,
+  "fields": {
+    "image": "banan2.jpg",
+    "item": 8
+  }
+},
+{
+  "model": "catalog.photoforgallery",
+  "pk": 4,
+  "fields": {
+    "image": "bread2.png",
+    "item": 3
+  }
+},
+{
   "model": "catalog.item",
   "pk": 2,
   "fields": {
-    "name": "Стиральный порошок \"Vanish\"",
-    "text": "Универсальный стиральный порошок, который превосходно справляется с любыми пятнами.",
+    "name": "Стиральный порошок \"BioMio\"",
     "is_published": true,
+    "text": "Универсальный стиральный порошок, который превосходно справляется с любыми пятнами и облегчает вам жизнь.",
     "category": 1,
+    "is_on_main": false,
     "tags": [
       1,
       2,
@@ -93,9 +127,10 @@
   "pk": 3,
   "fields": {
     "name": "Хлеб белый",
-    "text": "Превосходно выпеченная булка хлеба",
     "is_published": true,
+    "text": "<u>Превосходно</u>&nbsp;выпеченная булка хлеба",
     "category": 2,
+    "is_on_main": true,
     "tags": [
       1,
       5
@@ -107,9 +142,10 @@
   "pk": 4,
   "fields": {
     "name": "Моющее средство для стекол \"Super-glass\"",
-    "text": "Бытовая химия \"Super-glass\" - секрет роскошно блестящих чистых стекол в вашем доме!",
     "is_published": false,
+    "text": "Бытовая химия \"Super-glass\" - секрет роскошно блестящих чистых стекол в вашем доме!",
     "category": 1,
+    "is_on_main": false,
     "tags": [
       3
     ]
@@ -120,9 +156,10 @@
   "pk": 5,
   "fields": {
     "name": "Джем клубничный",
-    "text": "Превосходно сделанный клубничный джем",
     "is_published": true,
+    "text": "Превосходно сделанный клубничный джем",
     "category": 2,
+    "is_on_main": true,
     "tags": [
       1
     ]
@@ -130,15 +167,48 @@
 },
 {
   "model": "catalog.item",
-  "pk": 6,
+  "pk": 8,
   "fields": {
-    "name": "Бананы вес",
-    "text": "Роскошно выглядящие бананы, которые могут послужить прекрасным легким перекусом",
-    "is_published": false,
+    "name": "Бананы",
+    "is_published": true,
+    "text": "<p>Роскошно выглядящие бананы, которые могут стать превосходным перекусом.</p>",
     "category": 2,
+    "is_on_main": true,
     "tags": [
       6
     ]
+  }
+},
+{
+  "model": "catalog.imagemodel",
+  "pk": 2,
+  "fields": {
+    "image": "banan_eaDbblj.jpg",
+    "item_connected": 8
+  }
+},
+{
+  "model": "catalog.imagemodel",
+  "pk": 3,
+  "fields": {
+    "image": "jam.jpg",
+    "item_connected": 5
+  }
+},
+{
+  "model": "catalog.imagemodel",
+  "pk": 4,
+  "fields": {
+    "image": "white_bread.jpg",
+    "item_connected": 3
+  }
+},
+{
+  "model": "catalog.imagemodel",
+  "pk": 5,
+  "fields": {
+    "image": "washing_powder.png",
+    "item_connected": 2
   }
 }
 ]
