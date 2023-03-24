@@ -1,7 +1,7 @@
-from freezegun import freeze_time
-
 from django.contrib.auth.models import User
 from django.test import Client, TestCase
+
+from freezegun import freeze_time
 
 from .forms import UserRegisterForm
 
