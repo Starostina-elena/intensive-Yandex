@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'core.apps.CoreConfig',
     'feedback.apps.FeedbackConfig',
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -118,6 +119,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/auth/login/'
 
 
 # Internationalization

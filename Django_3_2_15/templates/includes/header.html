@@ -8,6 +8,7 @@
 
       <div class="collapse navbar-collapse" id="navbarsExample04">
         {% with request.resolver_match.view_name as view_name %}
+        {% with request.path_info as path %}
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
             <a class="nav-link {% if view_name == 'homepage:home' %}active{% endif %}" href="{% url 'homepage:home' %}">На главную</a>
@@ -21,7 +22,17 @@
           <li class="nav-item">
             <a class="nav-link {% if view_name == 'feedback:feedback' %}active{% endif %}" href="{% url 'feedback:feedback' %}">Обратная связь</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {% if path == '/users/user_list/' %}active{% endif %}" href="/users/user_list">Список пользователей</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if path == '/users/profile/' %}active{% endif %}" href="/users/profile">Мой профиль</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if path == '/auth/signup/' %}active{% endif %}" href="/auth/signup/">Регистрация</a>
+          </li>
         </ul>
+        {% endwith %}
         {% endwith %}
       </div>
     </div>

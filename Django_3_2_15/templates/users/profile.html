@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-layer">
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <p>
+      {{ form.as_p }}
+    </p>
+    <button type="submit" class="btn btn-light">Сохранить</button>
+  </form>
+  <br>
+  <button onclick="document.location='/coffee'" class="btn btn-light">Выпить кофе</button>
+  <button onclick="document.location='/auth/logout'" class="btn btn-light">Выйти</button>
+</div>
+{% endblock%}

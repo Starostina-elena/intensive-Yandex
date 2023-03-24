@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-layer">
+  <h1>{{ user_info.username }}</h1>
+  {% if user_info.profile.image %}
+  <img src="{{ user_info.profile.image.url }}" width="80%">
+  {% else %}
+  <p>Аватарки нет</p>
+  {% endif %}
+  <p>Электронная почта: {{ user_info.email }}</p>
+  <p>Имя: {% if user_info.first_name %}{{ user_info.first_name }}{% else %}<small style="color: grey;">Не указано</small>{% endif %}</p>
+  <p>Фамилия: {% if user_info.last_name %}{{ user_info.last_name }}{% else %}<small style="color: grey;">Не указано</small>{% endif %}</p>
+  <p>Дата рождения: {% if user_info.profile.birthday %}{{ user_info.profile.birthday }}{% else %}<small style="color: grey;">Не указано</small>{% endif %}</p>
+  <p>Пил(а) кофе: {{ user_info.profile.coffee_count }} раз</p>
+</div>
+{% endblock%}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="center-layer">
+    <ul class="list-group list-group-flush">
+      {% for user in users %}
+      <li class="list-group-item">
+      <a href="{{ user.profile.get_absolute_url }}">{{ user.username }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+</div>
+{% endblock%}
