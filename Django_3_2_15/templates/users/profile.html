@@ -14,7 +14,8 @@
   <form method="post">
     {% csrf_token %}
     <p>
-      {{ form.as_p }}
+      {{ form1.as_p }}
+      {{ form2.as_p }}
     </p>
     <button type="submit" class="btn btn-light">Сохранить</button>
   </form>
@@ -22,4 +23,4 @@
   <button onclick="document.location='/coffee'" class="btn btn-light">Выпить кофе</button>
   <button onclick="document.location='/auth/logout'" class="btn btn-light">Выйти</button>
 </div>
-{% endblock%}
+{% endblock %}

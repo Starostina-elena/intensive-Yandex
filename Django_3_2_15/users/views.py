@@ -10,7 +10,7 @@ from django.utils.timezone import datetime, timedelta
 
 from pytz import UTC
 
-from .forms import UserChangeProfile, UserRegisterForm
+from .forms import UserChangeProfile, UserChangeProfileBasic, UserRegisterForm
 from .models import Profile
 
 
@@ -82,14 +82,15 @@ def user_detail(request, user_id):
 def profile(request):
     template = 'users/profile.html'
     user = User.objects.get(username=request.user.get_username())
-    form = UserChangeProfile(request.POST or None)
+    form1 = UserChangeProfileBasic(request.POST or None)
+    form2 = UserChangeProfile(request.POST or None)
 
-    if form.is_valid():
-        email = form.cleaned_data.get('email')
-        name = form.cleaned_data.get('name')
-        surname = form.cleaned_data.get('surname')
-        birthday = form.cleaned_data.get('birthday')
-        userpic = form.cleaned_data.get('userpic')
+    if form1.is_valid() and form2.is_valid():
+        email = form1.cleaned_data.get('email')
+        name = form1.cleaned_data.get('first_name')
+        surname = form1.cleaned_data.get('last_name')
+        birthday = form2.cleaned_data.get('birthday')
+        userpic = form2.cleaned_data.get('userpic')
         user.email = email
         user.first_name = name
         user.last_name = surname
@@ -101,10 +102,10 @@ def profile(request):
                              'Изменения сохранены')
         return redirect('/users/profile')
     else:
-        form.fields['email'].initial = user.email
-        form.fields['name'].initial = user.first_name
-        form.fields['surname'].initial = user.last_name
-        form.fields['birthday'].initial = user.profile.birthday
+        form1.fields['email'].initial = user.email
+        form1.fields['first_name'].initial = user.first_name
+        form1.fields['last_name'].initial = user.last_name
+        form2.fields['birthday'].initial = user.profile.birthday
 
-    context = {'form': form}
+    context = {'form1': form1, 'form2': form2}
     return render(request, template, context)

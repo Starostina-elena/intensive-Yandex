@@ -5,8 +5,53 @@
   <form method="post">
     {% csrf_token %}
     <p>
-      {{ form.as_p }}
+      <label for="id_username">Имя пользователя:</label>
+      <br>
+      <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+      <br>
+      <span class="helptext">
+        Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
+      </span>
+      {% if form.username.errors %}
+      <div class="alert alert-danger">
+        {{ form.username.errors }}
+      </div>
+      {% endif %}
+    </p>
+    <p>
+      <label for="id_email">Email:</label>
+      <input type="email" name="email" required="" id="id_email">
+      {% if form.email.errors %}
+      <div class="alert alert-danger">
+        {{ form.email.errors }}
+      </div>
+      {% endif %}
+    </p>
+    <p>
+      <label for="id_password1">Пароль:</label>
+      <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1">
+      <br>
+      <span class="helptext">
+        Ваш пароль не должен быть слишком похож на другую вашу личную информацию и быть слишком распространенным. 
+        Пароль не должен состоять только из цифр и должен состоять как минимум из 8 символов.
+      </span>
+      {% if form.password1.errors %}
+      <div class="alert alert-danger">
+        {{ form.password1.errors }}
+      </div>
+      {% endif %}
+    </p>
+    <p>
+      <label for="id_password2">Подтверждение пароля:</label>
+      <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2">
+      <br>
+      <span class="helptext">Для подтверждения введите, пожалуйста, пароль ещё раз.</span>
+      {% if form.password2.errors %}
+      <div class="alert alert-danger">
+        {{ form.password2.errors }}
+      </div>
+      {% endif %}
     </p>
   <button type="submit" class="btn btn-light">Зарегистрироваться</button>
 </div>
-{% endblock%}
+{% endblock %}

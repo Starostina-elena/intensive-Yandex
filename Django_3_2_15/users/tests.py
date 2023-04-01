@@ -19,7 +19,7 @@ class TestRegister(TestCase):
         cls.user.set_password('best_password')
 
     def test_able_get_form_page(self):
-        response = Client().get('/auth/signup/')
+        response = Client().get('/users/signup/')
         self.assertEqual(response.status_code, 200)
 
     def test_register(self):
@@ -30,14 +30,14 @@ class TestRegister(TestCase):
             'email': 'some@email.com'
             }
         responce = Client().post(
-            '/auth/signup/',
+            '/users/signup/',
             data=form_data,
             follow=True
         )
         self.assertEqual(responce.status_code, 200)
 
     def test_activate_success(self):
-        response = Client().get('/auth/activate/username')
+        response = Client().get('/users/activate/username')
         self.assertContains(
             response,
             'Ваш аккаунт успешно активирован',
@@ -46,7 +46,7 @@ class TestRegister(TestCase):
 
     @freeze_time('2222-04-09')
     def test_activate_expired(self):
-        response = Client().get('/auth/activate/username')
+        response = Client().get('/users/activate/username')
         self.assertContains(
             response,
             'Ссылка для активации уже истекла',

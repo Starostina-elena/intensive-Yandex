@@ -1,6 +1,8 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
+
+from .models import Profile
 
 
 class UserRegisterForm(UserCreationForm):
@@ -11,13 +13,24 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class UserChangeProfile(forms.Form):
-    email = forms.EmailField(label='Электронная почта', required=False)
-    name = forms.CharField(max_length=255, label='Имя', required=False)
-    surname = forms.CharField(max_length=255, label='Фамилия', required=False)
-    birthday = forms.DateField(
-        label='Дата рождения',
-        required=False,
-        widget=forms.DateInput(attrs={'type': 'date'})
-        )
-    userpic = forms.ImageField(label='Аватарка', required=False)
+class UserChangeProfileBasic(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.visible_fields():
+            field.field.widget.attrs['class'] = 'form-control'
+
+    password = None
+
+    class Meta:
+        model = User
+        fields = [
+            User.email.field.name,
+            User.first_name.field.name,
+            User.last_name.field.name
+        ]
+
+
+class UserChangeProfile(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = (Profile.birthday.field.name, Profile.image.field.name)
